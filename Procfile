@@ -1,0 +1,1 @@
+web: gunicorn payslip_system.wsgi:application

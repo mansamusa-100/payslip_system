@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "payslip_system/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python" }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config":
+        {
+          "distDir": "staticfiles_build"
+        }
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.12",
+    "DJANGO_SETTINGS_MODULE": "payslip_system.settings",
+    "DATABASE_URL": "postgresql://postgres:ktBfCRiObnwDlkptAXThEsQrWCqXwxpW@roundhouse.proxy.rlwy.net:26232/railway"
+  },
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "payslip_system/wsgi.py"
+    }
+  ]
+}
